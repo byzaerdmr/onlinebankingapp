@@ -320,29 +320,6 @@ erDiagram
 
 ## Project Timeline
 
-```mermaid
-gantt
-  title BankingApp — Development Timeline (12 Weeks)
-  dateFormat  YYYY-MM-DD
-  axisFormat  Wk %W
+The project was planned as a 12-week development process, starting from requirement analysis and ending with documentation and presentation preparation.
 
-  section Planning
-  Requirement analysis       :done, 2024-03-01, 1w
-
-  section Design
-  System and database design :done, 2024-03-08, 2w
-
-  section Development
-  Frontend development       :done, 2024-03-22, 2w
-  Backend and DB integration :done, 2024-03-29, 2w
-  Stored proc trigger JOIN   :done, 2024-04-12, 1w
-  Security implementation    :done, 2024-04-19, 1w
-
-  section Testing
-  Functional testing         :done, 2024-04-26, 1w
-  Bug fix and validation     :done, 2024-05-03, 1w
-
-  section Documentation
-  Report writing             :done, 2024-04-26, 2w
-  Presentation preparation   :done, 2024-05-17, 1w
-```
+<img width="3570" height="1766" alt="BankingApp_Gantt_Timeline" src="https://github.com/user-attachments/assets/cc89f6ba-e712-42b0-a632-26cfa9bc8a65" />
