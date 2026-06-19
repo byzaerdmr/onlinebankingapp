@@ -265,7 +265,7 @@ erDiagram
   users ||--o{ accounts : "has"
   users ||--o{ beneficiaries : "saves"
   accounts ||--o{ transactions : "sends"
-  transactions ||--o| audit_logs : "logged in"
+  transactions ||--o{ audit_logs : "logged in"
 
   users {
     INT user_id PK
@@ -274,8 +274,9 @@ erDiagram
     VARCHAR email UK
     VARCHAR password_hash
     ENUM user_type
+    VARCHAR phone
     VARCHAR profile_photo
-    VARCHAR notification_preferences
+    TIMESTAMP created_at
   }
 
   accounts {
@@ -293,6 +294,7 @@ erDiagram
     VARCHAR beneficiary_name
     VARCHAR beneficiary_iban
     VARCHAR bank_name
+    TIMESTAMP created_at
   }
 
   transactions {
