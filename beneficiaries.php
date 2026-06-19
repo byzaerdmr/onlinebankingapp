@@ -4,6 +4,7 @@ include("config/db.php");
 
 $user_id = $_SESSION['user_id'];
 
+// Get beneficiaries of the logged-in user
 $sql = "SELECT * FROM beneficiaries WHERE user_id = ? ORDER BY beneficiary_id DESC";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("i", $user_id);
@@ -22,9 +23,13 @@ include("includes/dashboard_header.php");
         <div class="row g-3">
             <div class="col-md-4">
                 <label class="form-label">Beneficiary Name</label>
-                <input type="text" name="beneficiary_name" class="form-control" required>
+                <input 
+                    type="text" 
+                    name="beneficiary_name" 
+                    class="form-control" 
+                    required
+                >
             </div>
-
             <div class="col-md-4">
                 <label class="form-label">Beneficiary IBAN</label>
                 <div class="input-group">
@@ -34,18 +39,26 @@ include("includes/dashboard_header.php");
                         name="beneficiary_iban" 
                         class="form-control" 
                         maxlength="24"
+                        minlength="24"
                         pattern="[0-9]{24}"
-                        placeholder="____ ____ ____ ____ ____ ____"
+                        placeholder="Enter 24 digits"
                         required
-                        oninput="formatIBAN(this)"
                     >
                 </div>
+                <small class="text-muted">Enter 24 digits without spaces after TR</small>
+            </div>
+                   
                 <small class="text-muted">Enter 24 digits after TR</small>
             </div>
 
             <div class="col-md-4">
                 <label class="form-label">Bank Name</label>
-                <input type="text" name="bank_name" class="form-control" required>
+                <input 
+                    type="text" 
+                    name="bank_name" 
+                    class="form-control" 
+                    required
+                >
             </div>
         </div>
 
@@ -64,15 +77,16 @@ include("includes/dashboard_header.php");
                     <th style="width: 120px;">Action</th>
                 </tr>
             </thead>
+
             <tbody>
                 <?php while ($row = $result->fetch_assoc()): ?>
                     <tr>
-                        <td><?php echo htmlspecialchars($row['beneficiary_name']); ?></td>
-                        <td>TR<?php echo htmlspecialchars($row['beneficiary_iban']); ?></td>
-                        <td><?php echo htmlspecialchars($row['bank_name']); ?></td>
+                        <td><?php echo htmlspecialchars($row['beneficiary_name'], ENT_QUOTES, 'UTF-8'); ?></td>
+                        <td><?php echo htmlspecialchars($row['beneficiary_iban'], ENT_QUOTES, 'UTF-8'); ?></td>
+                        <td><?php echo htmlspecialchars($row['bank_name'], ENT_QUOTES, 'UTF-8'); ?></td>
                         <td>
                             <a 
-                                href="actions/beneficiary_delete_action.php?id=<?php echo $row['beneficiary_id']; ?>" 
+                                href="actions/beneficiary_delete_action.php?id=<?php echo (int)$row['beneficiary_id']; ?>" 
                                 class="btn btn-sm btn-outline-danger"
                                 onclick="return confirm('Are you sure you want to delete this beneficiary?');"
                             >
@@ -90,4 +104,7 @@ include("includes/dashboard_header.php");
     <?php endif; ?>
 </div>
 
-<?php include("includes/dashboard_footer.php"); ?>
+<?php 
+$stmt->close();
+include("includes/dashboard_footer.php"); 
+?>
